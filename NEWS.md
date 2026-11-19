@@ -1,28 +1,32 @@
-# curatedBreastData 2.41.2
+# curatedBreastData 2.42.0
 
 ## SIGNIFICANT USER-VISIBLE CHANGES
 
-- Package data has been successfully offloaded to Zenodo (https://zenodo.org/records/21415886) and is no longer directly embedded in the package. The data is now dynamically retrieved and cached via `BiocFileCache`.
+- The datasets are no longer stored in the package. They are hosted on
+  Zenodo (https://zenodo.org/records/21415886), downloaded on first use,
+  and cached with `BiocFileCache` (#1, @lwaldron).
+- The package is no longer marked deprecated, and the startup deprecation
+  warning is removed.
 
 ## NEW FEATURES
 
-- Added new retrieval functions `getCuratedBreastDataExprSetList()` and `getClinicalData()` to access the remote dataset from Zenodo.
-- Embedded a miniature test dataset archive in `inst/extdata` for rapid local testing and offline execution without remote dependencies.
-- Added `curatedBreastData_pData` (pre-concatenated phenotype metadata from all datasets) to the package reference index, manual vignette, and documentation.
-- Configured a new `pkgdown` documentation site to host the package reference manual and manual vignette.
+- New functions `getCuratedBreastDataExprSetList()` and `getClinicalData()`
+  retrieve the Zenodo datasets (#1, @lwaldron).
+- A small test dataset in `inst/extdata` allows offline examples and tests
+  (#2, @lwaldron).
+- `curatedBreastData_pData`, the pre-concatenated phenotype table, is now
+  documented in the reference index and vignette.
+- New pkgdown site.
 
-## BUG FIXES
+## BUG FIXES AND MINOR IMPROVEMENTS
 
-- Fixed operator precedence bugs and replaced deprecated `1:...` loop sequence generators with type-safe `seq_along()` and `seq_len()`.
-- Converted `sapply` calls to type-safe `vapply()` in `collapseDupProbes()`.
-- Updated `DESCRIPTION` metadata to include the latest R dependency (`>= 4.6.0`), missing `biocViews`, `URL`, and `BugReports` fields.
-
-## INTERNAL CHANGES
-
-- Migrated all package documentation to `roxygen2` and removed legacy `.Rd` manual pages.
-- Converted the package vignette from Sweave (`.Rnw`) to R Markdown (`.Rmd`) for improved readability and compilation performance.
-- Added `README.md` and `_pkgdown.yml` mirroring the design of `MultiAssayExperiment`.
-- Configured GitHub Actions CI workflows for automated `R CMD check` and Bioconductor compliance validation (`BiocCheck`).
+- Fix operator-precedence bugs in loops, and use `seq_along()`,
+  `seq_len()` and `vapply()` (in `collapseDupProbes()`).
+- Fix cache path handling in `BiocFileCache` retrieval when the cache is
+  empty.
+- Documentation is migrated to roxygen2, the vignette is converted to R
+  Markdown, `DESCRIPTION` gains `biocViews`, `URL` and `BugReports`, and CI
+  is added (#1, @lwaldron).
 
 # curatedBreastData 0.99.0
 
